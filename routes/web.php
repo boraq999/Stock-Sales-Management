@@ -18,4 +18,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('invoices', \App\Http\Controllers\Admin\InvoiceController::class);
         Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
     });
+
+    Route::prefix('marketer')->name('marketer.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\MarketerController::class, 'index'])->name('index');
+        Route::post('/assignments/{assignment}/confirm', [\App\Http\Controllers\MarketerController::class, 'confirmAssignment'])->name('assignments.confirm');
+        Route::post('/invoices', [\App\Http\Controllers\MarketerController::class, 'storeInvoice'])->name('invoices.store');
+        Route::post('/returns/store', [\App\Http\Controllers\MarketerController::class, 'storeReturn'])->name('returns.store');
+        Route::post('/returns/warehouse', [\App\Http\Controllers\MarketerController::class, 'warehouseReturn'])->name('returns.warehouse');
+    });
 });
